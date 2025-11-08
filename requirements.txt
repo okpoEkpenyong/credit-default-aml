@@ -9,3 +9,5 @@ joblib
 streamlit
 matplotlib
 python-dotenv
+gunicorn
+flask

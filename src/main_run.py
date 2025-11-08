@@ -6,6 +6,7 @@ import joblib
 import mlflow
 import mlflow.sklearn
 import numpy as np
+import mlflow.pyfunc
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import GradientBoostingClassifier
@@ -26,13 +27,14 @@ def main():
     parser.add_argument("--n_estimators", required=False, default=100, type=int)
     parser.add_argument("--learning_rate", required=False, default=0.1, type=float)
     parser.add_argument("--registered_model_name", type=str, help="model name")
+    parser.add_argument("--saved_model_path", type=str, default="../models", help="path to save the model locally")
     args = parser.parse_args()
    
     # Start Logging
     mlflow.start_run()
 
     # enable autologging
-    mlflow.sklearn.autolog()
+    mlflow.autolog()
 
     ###################
     #<prepare the data>
@@ -79,17 +81,18 @@ def main():
     ###################
     # Registering the model to the workspace
     print("Registering the model via MLFlow")
-    mlflow.sklearn.log_model(
+ 
+    mlflow.sklearn.log_model( # type: ignore
         sk_model=clf,
         registered_model_name=args.registered_model_name,
-        name=args.registered_model_name,
-        # artifact_path=args.registered_model_name,
+        artifact_path=args.registered_model_name,
     )
+    
 
     # Saving the model to a file
-    mlflow.sklearn.save_model(
+    mlflow.sklearn.save_model( # type: ignore
         sk_model=clf,
-        path=os.path.join(args.registered_model_name, "trained_model"),
+        path=os.path.join(args.saved_model_path, "trained_model"),
     )
     ###########################
     #</save and register model>
