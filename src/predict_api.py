@@ -3,12 +3,14 @@ import mlflow.pyfunc
 import pandas as pd
 import os
 
+os.chdir("../") 
+print("Current directory:", os.getcwd())
+
 app = Flask(__name__)
 
 # MODEL_URI = "models:/local_model/1"  # or the latest model version
 MODEL_URI = os.path.join(os.path.dirname(__file__), "models/gbc_model/trained_model")
 model = mlflow.pyfunc.load_model(MODEL_URI)
-# model = mlflow.sklearn.load_model("models/gbc_model/trained_model")
 
 @app.route("/")
 def home():
