@@ -1,0 +1,11 @@
+azure-ai-ml
+azure-identity
+mlflow
+scikit-learn
+pandas
+numpy
+xgboost
+joblib
+streamlit
+matplotlib
+python-dotenv
