@@ -7,7 +7,6 @@ import mlflow
 import mlflow.sklearn
 import numpy as np
 import mlflow.pyfunc
-
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import GradientBoostingClassifier
 import xgboost as xgb
@@ -53,7 +52,6 @@ def main():
         test_size=args.test_train_ratio,
     )
 
-
     # Extracting the label column
     y_train = train_df.pop("default payment next month")
 
@@ -88,7 +86,6 @@ def main():
         artifact_path=args.registered_model_name,
     )
     
-
     # Saving the model to a file
     mlflow.sklearn.save_model( # type: ignore
         sk_model=clf,
